@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>OSS Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" />
+    <style>
+        label {
+            width: 100px;
+        }
+        
+        label.error {
+            color: red;
+        }
+        
+        input {
+            border: 1px solid #ccc;
+        }
+        
+        input.error {
+            border-color: red;
+        }
+        
+        input.valid {
+            border-color: green;
+        }
+        
+        .content {
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+        
+        #testForm div {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .error-text {
+            position: absolute;
+            font-size: 11px;
+            bottom: -10px;
+            left: 105px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content">
+                    <form id="testForm">
+                        <div>
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" />
+                            <span class="error-text" id="error-fName">enter min 2 simbol</span
+                >
+              </div>
+
+              <div>
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" />
+                <span class="error-text" id="error-lName"
+                  >enter min 2 simbol</span
+                >
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" />
+                <span class="error-text" id="error-email"
+                  >enter valid email</span
+                >
+              </div>
+
+              <button id="btn-form" type="button">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const myForm = () => {
+        const ValidateForm = () => {
+          let validateEmail = document.getElementById("email");
+          let validateFirstName = document.getElementById("firstName");
+          let validateLastName = document.getElementById("lastName");
+
+          let errorTextFirstName = document.getElementById("error-fName");
+          let errorTextLastName = document.getElementById("error-lName");
+          let errorTextEmail = document.getElementById("error-email");
+
+          let mailformat = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+
+          if (validateFirstName.value.length < 2) {
+            validateFirstName.classList.remove("error");
+            validateFirstName.classList.add("error");
+            errorTextFirstName.style.display = "block";
+          }
+          if (validateFirstName.value.length > 1) {
+            errorTextFirstName.style.display = "none";
+            validateFirstName.classList.remove("error");
+            validateFirstName.classList.add("valid");
+          }
+          if (validateLastName.value.length < 2) {
+            validateLastName.classList.remove("error");
+            validateLastName.classList.add("error");
+            errorTextLastName.style.display = "none";
+            errorTextLastName.style.display = "block";
+          }
+          if (validateLastName.value.length > 1) {
+            errorTextLastName.style.display = "none";
+            validateLastName.classList.remove("error");
+            validateLastName.classList.add("valid");
+          }
+          if (!validateEmail.value.match(mailformat)) {
+            validateEmail.classList.remove("error");
+            validateEmail.classList.add("error");
+            errorTextEmail.style.display = "none";
+            errorTextEmail.style.display = "block";
+          }
+          if (validateEmail.value.match(mailformat)) {
+            errorTextEmail.style.display = "none";
+            validateEmail.classList.remove("error");
+            validateEmail.classList.add("valid");
+          }
+          if (
+            validateEmail.value.match(mailformat) &&
+            validateFirstName.value.length > 1 &&
+            validateLastName.value.length > 1
+          ) {
+            alert("FORM VALID!!!!");
+          }
+        };
+
+        document
+          .getElementById("btn-form")
+          .addEventListener("click", ValidateForm);
+      };
+      myForm();
+    </script>
+  </body>
+</html>
